@@ -1,0 +1,128 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding">
+    <div class="container p-1">
+
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-8">
+                <%errors.forEach((error)=>{%>
+                    <div class="alert alert-danger small text-center"><%=error%></div>
+                <%})%>
+            
+                <%success.forEach((msg)=>{%>
+                    <div class="alert alert-success small text-center"><%=msg%></div>
+                <%})%>
+
+                <div class="card card-registration my-4">
+                    <% if(user.person=='customer'){ %>
+                        <form action="/profile" method="POST" class="card-body p-md-5 text-black">
+                    <% } else{ %>                     
+                        <div class="card-body p-md-5 text-black">
+                    <% } %>
+                            <h3 class="mb-5 text-uppercase heading"><b>My Profile</b></h3>
+                
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form3Example1m" class="form-control form-control-lg" placeholder='<%= user.username %>' readonly disabled/>
+                                <label class="form-label" for="form3Example1m">Name</label>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="text" id="form3Example1n" class="form-control form-control-lg" placeholder='<%= user.email %>' readonly disabled/>
+                                <label class="form-label" for="form3Example1n">Email</label>
+                            </div>
+
+                            <% if(user.person=='admin'){ %>
+                                <div class="d-flex justify-content-end pt-3">
+                                    <a type="button" href='/change-password' class="btn btn-primary btn-lg ms-2 pass">Change Password</a>
+                                </div>
+                            <% } %>
+
+                            <% if(user.person!='admin'){ %>
+                                <% if(user.person=='employee'){ %>
+                                    <div class="form-outline mb-4">
+                                        <input type="text" id="form3Example90" class="form-control form-control-lg" disabled readonly placeholder='<%= user.address %>'/>
+                                        <label class="form-label" for="form3Example90">Address</label>
+                                    </div>
+            
+                                    <div class="form-outline mb-4">
+                                        <input type="tel" pattern="[0-9]{11}" id="form3Example99" class="form-control form-control-lg" disabled readonly placeholder='<%= user.contact %>'/>
+                                        <label class="form-label" for="form3Example99">Contact</label>
+                                    </div>
+
+                                    <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+                                        <h6 class="mb-0 me-4 mr-4">Role: </h6>
+            
+                                        <div class="custom-control custom-radio custom-control-inline radio1">
+                                            <input type="radio" id="assembler" class="custom-control-input" disabled readonly <%= user.role=='assembler' ? 'checked' : '' %>>
+                                            <label class="custom-control-label" for="assembler">Assembler</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline radio2">
+                                            <input type="radio" id="carrier" class="custom-control-input" disabled readonly <%= user.role=='carrier' ? 'checked' : '' %>>
+                                            <label class="custom-control-label" for="carrier">Carrier</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+                                        <h6 class="mb-0 me-4 mr-4">Status: </h6>
+    
+                                        <div class="custom-control custom-radio custom-control-inline radio1">
+                                            <input type="radio" id="active" class="custom-control-input" disabled readonly <%= user.status=='active' ? 'checked' : '' %> />
+                                            <label class="custom-control-label" for="active">Active</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline radio2">
+                                            <input type="radio" id="inactive" class="custom-control-input" disabled readonly <%= user.status=='inactive' ? 'checked' : '' %> />
+                                            <label class="custom-control-label" for="inactive">Inactive</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline radio2">
+                                            <input type="radio" id="suspended" class="custom-control-input" disabled readonly <%= user.status=='suspended' ? 'checked' : '' %> />
+                                            <label class="custom-control-label" for="suspended">Suspended</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+                                        <h6 class="mb-0 me-4 mr-4">Reg Date: <%= user.regDate %></h6>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end pt-3">
+                                        <a type="button" href='/change-password' class="btn btn-primary btn-lg ms-2 pass">Change Password</a>
+                                    </div>
+                                <% } %>
+
+                                <% if(user.person=='customer'){ %>
+                                    <div class="form-outline mb-4">
+                                        <input type="tel" pattern="[0-9]{11}" name='contact' id="contact" class="form-control form-control-lg"  value='<%= user.contact %>'/>
+                                        <label class="form-label" for="contact">Contact</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="text" name='license' id="license" class="form-control form-control-lg"  value='<%= user.license %>'/>
+                                        <label class="form-label" for="license">License</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="color" name='color' id="color" class="form-control form-control-lg" value='<%= user.color %>'/>
+                                        <label class="form-label" for="color">Vehicle color</label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end pt-3 flex-wrap">
+                                        <button type="submit" class="btn btn-success btn-lg ms-2 submit marginR">Update</button>
+                                        <a type="button" href='/change-password' class="btn btn-primary btn-lg ms-2 pass marginL">Change Password</a>         
+                                    </div>
+                                <% } %>   
+                            <% } %>
+            
+                    <% if(user.person=='customer'){ %>
+                        </form>
+                    <% } else{ %>                     
+                        </div>
+                    <% } %>
+
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<%- include('includes/footer') %>

@@ -1,0 +1,62 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding"> 
+  <div class="container p-1">
+
+    <%errors.forEach((error)=>{%>
+      <div class="alert alert-danger small text-center"><%=error%></div>
+    <%})%>
+
+    <div class="row">
+      <div class="col-lg-7 py-3 py-md-5 info">
+        <img src='/images/drive.jpg' class='img-1 rounded'>
+        <img src='/images/sign board.jpg' class='img-2 rounded'>
+        <h1 class="display-3">Tired of old-fashioned shopping?</h1>      
+        <p class="lead text-muted">Welcome to our drive-through store's application which will help you save your valuable time by placing the order online and picking it up without leaving your car.</p>
+      </div>
+
+      <div class="col-lg-5 pl-lg-5 pb-3 py-lg-5">
+        <form action="/register" method="POST" id="registration-form">
+          <div class="form-group">
+            <label for="username-register" class="text-muted mb-1"><small>Name</small></label>
+            <input name="username" id="username-register" class="form-control" type="text" placeholder="Enter your Full Name" autocomplete="off">
+          </div>
+          
+          <div class="form-group">
+            <label for="email-register" class="text-muted mb-1"><small>Email</small></label>
+            <input name="email" id="email-register" class="form-control" type="text" placeholder="you@example.com" autocomplete="off">
+          </div>
+          
+          <div class="form-group">
+            <label for="password-register" class="text-muted mb-1"><small>Password</small></label>
+            <input name="password" id="password-register" class="form-control" type="password" placeholder="Create a password">
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-register" class="text-muted mb-1"><small>Confirm Password</small></label>
+            <input name="confirm" id="confirm-register" class="form-control" type="password" placeholder="Retype password">
+          </div>
+
+          <div class="form-group">
+            <label for="contact-register" class="text-muted mb-1"><small>Contact</small></label>
+            <input name="contact" id="contact-register" class="form-control" type="tel" pattern="[0-9]{11}" placeholder="03041424148">
+          </div>
+
+          <div class="form-group">
+            <label for="license-register" class="text-muted mb-1"><small>License plate</small></label>
+            <input name="license" id="license-register" class="form-control" type="text" placeholder="KJE 2134">
+          </div>
+
+          <div class="form-group">
+            <label for="color-register" class="text-muted mb-1"><small>Vehicle Color</small></label>
+            <input name="color" id="color-register" class="form-control" type="color" value="#FFFFFF">
+          </div>
+          
+          <button type="submit" class="mt-4 btn btn-lg btn-success btn-block signup">Sign up</button>       
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('includes/footer') %>

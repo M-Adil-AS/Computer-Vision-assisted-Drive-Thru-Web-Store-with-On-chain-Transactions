@@ -1,0 +1,89 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding">
+    <div class="container p-1">
+
+        <%errors.forEach((error)=>{%>
+            <div class="alert alert-danger small text-center"><%=error%></div>
+        <%})%>
+    
+        <%success.forEach((msg)=>{%>
+            <div class="alert alert-success small text-center"><%=msg%></div>
+        <%})%>
+    
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="col-xl-6 d-none d-xl-block">
+                            <img
+                                src="/images/office.jpg"
+                                alt="Sample photo"
+                                class="img-fluid officePic1"
+                                style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;"
+                            />
+                        </div>
+
+                        <div class="col-xl-6">
+                            <form action="/register-employee" method="POST" class="card-body p-md-5 text-black">
+                                <h3 class="mb-5 text-uppercase heading"><b>Register employee</b></h3>
+                    
+                                <div class="form-outline mb-4">
+                                    <input type="text" name='username' id="form3Example1m" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example1m">Name</label>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="text" name='email' id="form3Example1n" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example1n">Email</label>
+                                </div>
+    
+                                <div class="form-outline mb-4">
+                                    <input type="password" name='password' id="form3Example8" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example8">Password</label>
+                                </div>
+    
+                                <div class="form-outline mb-4">
+                                    <input type="password" name='confirm' id="form3Example9" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example9">Confirm Password</label>
+                                </div>
+    
+                                <div class="form-outline mb-4">
+                                    <input type="text" name='address' id="form3Example90" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example90">Address</label>
+                                </div>
+    
+                                <div class="form-outline mb-4">
+                                    <input type="tel" pattern="[0-9]{11}" name='contact' id="form3Example99" class="form-control form-control-lg" />
+                                    <label class="form-label" for="form3Example99">Contact</label>
+                                </div>
+
+                                <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+                                    <h6 class="mb-0 me-4 mr-4">Role: </h6>
+
+                                    <div class="custom-control custom-radio custom-control-inline radio1">
+                                        <input type="radio" id="assembler" value='assembler' name="role" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="assembler">Assembler</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline radio2">
+                                        <input type="radio" id="carrier" value='carrier' name="role" class="custom-control-input">
+                                        <label class="custom-control-label" for="carrier">Carrier</label>
+                                    </div>
+                                </div>
+    
+                                <div class="d-flex justify-content-end pt-3">
+                                    <button type="submit" class="btn btn-success btn-lg ms-2 submit">Submit form</button>
+                                </div>
+    
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+<%- include('includes/footer') %>

@@ -1,0 +1,79 @@
+td a, td button{
+    text-align: center;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.distribute, .toggle{
+    width:500px;
+    margin: auto;
+}
+
+.distribute form, .toggle form{
+    display: block;
+    width: 100%;
+}
+
+.distribute button:hover, .toggle button:hover{
+    background: darkblue;
+    color:white;
+    text-decoration: none;
+}
+
+.distribute button, .toggle button{
+    text-align: center;
+    color:darkblue;
+    border: 1px solid darkblue;
+}
+
+.action button{
+    border: none;
+}
+
+.red{
+    color: red;
+}
+
+.green{
+    color: green;
+}
+
+.empStatus{
+    font-size: x-large;
+}
+
+.empWork{
+    color:grey;
+    font-size: large;
+}
+
+.half-opacity{
+    opacity: 0.65;
+}
+
+.color{
+    display: inline-block;
+    width: 27px;
+    border: 1px solid black;
+}
+
+.bg-green{
+    background: rgb(26, 160, 26);
+    color:white !important;
+}
+
+.bg-red{
+    background: rgb(247, 167, 48);
+    color:white !important;
+}
+
+@media (max-width: 768px) {
+    .distribute, .toggle {width:80%;}
+    .distribute button, .toggle button{height:auto;}
+}
+
+@media (max-width: 450px) {
+    .distribute, .toggle{width:100%;}
+    .empStatus{font-size: 20px;}
+    .empWork{font-size: medium;}
+}

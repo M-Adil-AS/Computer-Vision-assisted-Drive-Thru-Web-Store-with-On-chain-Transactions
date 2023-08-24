@@ -1,0 +1,106 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding py-md-5">
+    <div class="container-fluid p-1">
+
+        <%errors.forEach((error)=>{%>
+            <div class="alert alert-danger small text-center"><%=error%></div>
+        <%})%>
+
+        <div id='attendForm'>
+            <div class="form-group d-inline-block month">
+                <label for="Month">Month</label>
+                <select id="Month" class="form-control-sm">
+                    <option value="1" <%= month == '1' ? 'selected' : ''%>>Jan</option>
+                    <option value="2" <%= month == '2' ? 'selected' : ''%>>Feb</option>
+                    <option value="3" <%= month == '3' ? 'selected' : ''%>>March</option>
+                    <option value="4" <%= month == '4' ? 'selected' : ''%>>April</option>
+                    <option value="5" <%= month == '5' ? 'selected' : ''%>>May</option>
+                    <option value="6" <%= month == '6' ? 'selected' : ''%>>June</option>
+                    <option value="7" <%= month == '7' ? 'selected' : ''%>>July</option>
+                    <option value="8" <%= month == '8' ? 'selected' : ''%>>Aug</option>
+                    <option value="9" <%= month == '9' ? 'selected' : ''%>>Sept</option>
+                    <option value="10"<%= month == '10' ? 'selected' : ''%>>Oct</option>
+                    <option value="11"<%= month == '11' ? 'selected' : ''%>>Nov</option>
+                    <option value="12"<%= month == '12' ? 'selected' : ''%>>Dec</option>
+                </select>
+            </div>
+            <div class="form-group d-inline-block year">
+                <label for="Year">Year</label>
+                <input type='number' id="Year" class="form-control-sm" value='<%=year%>' min='2022' max='2100'>
+            </div>
+            <div class="form-group d-inline-block attendSubmit">
+                <% if(user.person=='admin' && page=='single'){ %>
+                    <button type="button" class="btn-primary form-control-sm" id='attendSubmitBtn'
+                    onclick="window.location.href=`/employee/<%=empID%>/attendance/${document.querySelector('#Month').value}/${document.querySelector('#Year').value}`" >Submit</button>
+                <% }else if(user.person=='admin' && page=='list'){ %>
+                    <button type="button" class="btn-primary form-control-sm" id='attendSubmitBtn'
+                    onclick="window.location.href=`/attendance-list/${document.querySelector('#Month').value}/${document.querySelector('#Year').value}`" >Submit</button>
+                <% }else if(user.person=='employee'){ %>
+                    <button type="button" class="btn-primary form-control-sm" id='attendSubmitBtn'
+                    onclick="window.location.href=`/attendance/${document.querySelector('#Month').value}/${document.querySelector('#Year').value}`" >Submit</button>
+                <%}%>
+            </div>  
+        </div>
+
+        <% if((user.person=='admin' && page=='single') || user.person=='employee'){ %>
+            <div id='summary'>
+                <span>
+                    P=<%=symbols.filter(symbol => symbol=='P').length %>, 
+                    T=<%=symbols.filter(symbol => symbol=='T').length %>, 
+                    A=<%=symbols.filter(symbol => symbol=='A').length %>
+                </span>
+            </div>
+        <%}%>
+
+        <div class='table-responsive' id='table'>
+            <table class="table table-bordered">
+                <tr class="d-flex">
+                    <td class='header grey'><b>Day</b></td>
+                    <% dayNames.forEach((dayName)=>{ %>
+                        <td class='content grey'><%= dayName %></td>
+                    <% }) %>
+                </tr>
+
+                <tr class="d-flex">
+                    <td class='header'><b>Date</b></td>
+                    <% dayDates.forEach((dayDate)=>{ %>
+                        <td class='content'><%= dayDate %></td>
+                    <% }) %>
+                </tr>
+
+                <% if(user.person=='admin' && page=='list'){ %>
+                    <% employees.forEach((employee,index)=>{ %>
+                        <tr class="d-flex">
+                            <td class='header scroll'><%=(employee.username).replace(/\s+/g, '_')%></td>
+                            <% symbols[index].forEach((symbol)=>{ %>
+                                <% if(symbol=='A'){ %>
+                                    <td class="content text-white blue"><b><%= symbol %></b></td>
+                                <% } else if(symbol=='T'){ %>
+                                    <td class="content text-white orange"><b><%= symbol %></b></td>
+                                <% } else if(symbol=='P'){ %>
+                                    <td class="content text-white green"><b><%= symbol %></b></td>
+                                <% } %>
+                            <% }) %>
+                        </tr>      
+                    <% }) %> 
+                <% }else{ %>
+                    <tr class="d-flex">
+                        <td class='header'></td>
+                        <% symbols.forEach((symbol)=>{ %>
+                            <% if(symbol=='A'){ %>
+                                <td class="content text-white blue"><b><%= symbol %></b></td>
+                            <% } else if(symbol=='T'){ %>
+                                <td class="content text-white orange"><b><%= symbol %></b></td>
+                            <% } else if(symbol=='P'){ %>
+                                <td class="content text-white green"><b><%= symbol %></b></td>
+                            <% } %>
+                        <% }) %>
+                    </tr>       
+                <% } %>           
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('includes/footer') %>

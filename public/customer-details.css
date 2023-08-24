@@ -1,0 +1,17 @@
+.col{
+    max-width:600px;
+}
+
+@media (max-width: 767px) {
+    .card .card-body{padding: 2rem;}
+}
+
+@media (max-width: 340px){
+    .card .card-body{padding: 1.5rem;}
+}
+
+.color{
+    display: inline-block;
+    width: 27px;
+    border: 1px solid black;
+}

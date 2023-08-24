@@ -1,0 +1,75 @@
+table{
+    font-size: small; 
+}
+
+td{
+    text-align: center;
+    padding: 0.75rem 0.25rem !important;
+}
+
+.header{
+    width:60px;
+}
+
+.content{
+    width:50px;
+}
+
+.grey{
+    background-color: rgba(0,0,0,.05);
+}
+
+.green{
+    background-color: rgb(141, 216, 138);
+}
+
+.orange{
+    background-color: #ffd34f;
+}
+
+.blue{
+    background-color: rgb(158, 137, 252);
+}
+
+.scroll{
+    overflow-x: scroll;
+}
+
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#summary{
+    margin-top:15px;
+}
+
+table{margin-top: 15px;}
+
+.year, .attendSubmit{margin-left: 18px;}
+select, input[type='number'], #attendSubmitBtn{width:87.5px;}
+
+input[type='number']{
+    border: 1px solid grey;
+}
+
+#attendSubmitBtn{padding: 0 !important;}
+
+@media (max-width: 768px) {
+    table {font-size: smaller;}
+    .content{width:45px;}
+    .header{width:55px;}
+}
+
+@media (max-width: 470px) {
+    #attendForm div{display: block !important;}
+    label{display: inline-block; width:50px;}
+    #summary{margin-top: 40px;}
+    select, input[type='number']{width:100% !important}
+    #attendSubmitBtn{width:100% !important}
+    .year, .attendSubmit{margin-left: 0px;}
+}

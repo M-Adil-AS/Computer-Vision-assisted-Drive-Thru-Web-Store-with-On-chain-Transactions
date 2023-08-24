@@ -1,0 +1,111 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding">
+    <div class="container p-1">
+
+        <%errors.forEach((error)=>{%>
+            <div class="alert alert-danger small text-center"><%=error%></div>
+        <%})%>
+    
+        <%success.forEach((msg)=>{%>
+            <div class="alert alert-success small text-center"><%=msg%></div>
+        <%})%>
+
+        <% if(user.person=='employee'){ %>
+            <div class="row d-flex justify-content-center align-items-center h-100"> 
+            <div class="col">
+                <div class="d-flex flex-wrap justify-content-center mt-3">
+                    <button class='btn-sm btn-info print' onclick="printSlip('.card')">Print Slip</button>
+    
+                    <% if(task.status=='incomplete' && order.status=='placed' && empRole=='assembler'){ %>
+                        <form action='/mark-task/<%= task._id %>' class="mark" method='POST'>
+                            <button type="submit" class="btn-sm btn-block btn-info markBtn">Task Done</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+            </div>
+        <% } %>
+    
+        <div class="row d-flex justify-content-center align-items-center h-100">  
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="card-body p-md-5 text-black d-flex flex-column">
+                        <span class='mb-3 orderNo'><b>Order No:</b> <%= order.orderNo %></span>
+                        <% if(user.person!='employee'){ %>
+                            <% if(order.account=='Meta Mask'){ %>
+                                <a class='mb-3' href="https://goerli.etherscan.io/tx/<%=order.transactionID%>" role="button"><b>Transaction ID:</b> Link</a>
+                            <% } else{ %>
+                                <span class='mb-3'><b>Transaction ID:</b> <%= order.transactionID %></span>
+                            <% } %>
+                            <span class='mb-3'><b>Account:</b> <%= order.account %></span>
+                        <% } %>
+
+                        <span class='mb-3 status'><b>Status:</b> <%= order.status %></span>
+
+                        <% if(user.person=='employee'){ %>
+                            <span class='mb-3 vehicleID'><b>Vehicle ID:</b> <%= order.customerLicenseID %></span>
+                            <span class='mb-3 vehicleColor'><b>Vehicle Color:</b> <span class='color' colorAttr='<%=order.customerVehicleColor%>'>&nbsp;</span></span>
+                        <% } %>
+                        
+                        <% if(user.person=='admin'){ %>
+                            <% if(order.assembler=='-'){ %>
+                                <span class='mb-3'><b>Assembler:</b> <%= order.assembler %></span>
+                            <% } else{ %>
+                                <a class='mb-3' href="/edit-employee/<%= order.assembler %>" role="button"><b>Assembler:</b> Link</a>
+                            <% } %>
+                            
+                            <% if(order.carrier=='-'){ %>
+                                <span class='mb-3'><b>Carrier:</b> <%= order.carrier %></span>
+                            <% } else{ %>
+                                <a class='mb-3' href="/edit-employee/<%= order.carrier %>" role="button"><b>Carrier:</b> Link</a>
+                            <% } %>
+                        <% } %>
+
+                        <span class='mb-3 placed_at'><b>Placed At:</b> <%= order.placed_at %></span>
+                        <span class='mb-3 assembled_at'><b>Assembled At:</b> <%= order.assembled_at %></span>
+                        <span class='mb-3 detected_at'><b>Detected At:</b> <%= order.detected_at %></span>
+                        <span class='mb-5 delivered_at'><b>Delivered At:</b> <%= order.carried_at %></span>
+                        
+                        <div class='table-responsive' id='table'>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                
+                                    <% order.items.forEach((item,index)=>{ %>
+                                        <tr>
+                                            <th scope="row"><%= index+1 %></th>
+                                            <td><%= item.title %></td>
+                                            <td><%= item.desc %></td>
+                                            <td><%= item.qty %></td>
+                                            <td><%= item.price %></td>
+                                        </tr>
+                                    <% }) %>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>Total</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><%= order.items.reduce((value,item)=> value + Number(item.qty)*Number(item.price),0) %></td>
+                                    </tr>
+                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+<%- include('includes/footer') %>

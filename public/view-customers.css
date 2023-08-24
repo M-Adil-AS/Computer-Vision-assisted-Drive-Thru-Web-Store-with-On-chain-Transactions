@@ -1,0 +1,11 @@
+td a{
+    text-align: center;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.color{
+    display: inline-block;
+    width: 27px;
+    border: 1px solid black;
+}

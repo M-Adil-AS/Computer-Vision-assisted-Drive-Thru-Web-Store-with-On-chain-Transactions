@@ -1,0 +1,35 @@
+#s-bar{
+    width:100%;
+}
+
+#c-bar{
+    margin-top: 10px;
+    width:100%;
+}
+
+#pie{
+    margin-top: 10px;
+    width:100%;
+}
+
+#saleSubmitBtn{padding: 0 !important; width:87.5px;}
+#saleForecastBtn{padding: 0 !important; width: 130px;}
+.to, .saleSubmit, .saleForecast{margin-left: 18px;}
+
+input[type='number']{
+    border: 1px solid black;
+    width:165px;
+}
+
+@media (max-width: 752px) {
+    #salesForm div{display: block !important;}
+    label{display: inline-block; width:50px;}
+    input[type='number'], input[type='month']{width:100% !important}
+    #saleSubmitBtn, #saleForecastBtn{width:100% !important}
+    .to, .saleSubmit, .saleForecast{margin-left: 0px;}
+    .radio{margin-top: 5px;}
+}
+
+@media (max-width: 1000px) {
+    #charts {flex-direction: column;}
+}

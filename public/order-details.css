@@ -1,0 +1,39 @@
+.col{
+    max-width:600px;
+}
+
+a{
+    color:black;
+}
+
+.print,.markBtn{
+    width:90px;
+}
+
+.markBtn{
+    margin-left: 5px;
+}
+
+.print{
+    margin-left: -5px;
+}
+
+.mark{
+    padding: 0;
+}
+
+.color{
+    display: inline-block;
+    width: 27px;
+    border: 1px solid black;
+}
+
+@media (max-width: 767px) {
+    .card .card-body{padding: 2rem;}
+}
+
+@media (max-width: 340px){
+    .card .card-body{padding: 1.5rem;}
+    .markBtn, .print, .mark{margin-left: 0; width: 100%;}
+    .markBtn{margin-top: 10px;}
+}

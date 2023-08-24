@@ -1,0 +1,102 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding py-md-5">
+    <div class="container-fluid p-1">
+
+        <%errors.forEach((error)=>{%>
+            <div class="alert alert-danger small text-center"><%=error%></div>
+        <%})%>
+
+        <%success.forEach((msg)=>{%>
+            <div class="alert alert-success small text-center"><%=msg%></div>
+        <%})%>
+
+        <% if(user.person=='admin' && tasks.filter(task => task.status=='incomplete').length){ %>
+            <div class="input-group distribute">
+                <form action='/distribute-tasks/<%= empID %>' method='POST'>
+                    <button type="submit" class="form-control">Distribute Incomplete Tasks</button>
+                </form>
+            </div>
+        <% } else if(user.person=='employee'){ %> 
+            <div class='empStatus d-flex justify-content-center'>
+                <span class="<%=emp.status=='active' ? 'green' : 'red'%>">&#9673; &nbsp;</span>
+                <span>Current Status: <%= emp.status %> 
+                    <% if(emp.status=='inactive'){ %>
+                        <br> 
+                        <span class='empWork'>Worked <%= emp.attendanceInfo %> today</span>
+                    <% } %> 
+                </span>
+            </div>
+            <div class="input-group toggle mt-3">
+                <form action='/toggle-status' method='POST'>
+                    <button type="submit" class="form-control">Toggle Status</button> 
+                </form>
+            </div>
+        <% } %>
+
+        <div class="d-flex completedTasks justify-content-center <%= user.person=='employee' || (user.person=='admin' && tasks.filter(task => task.status=='incomplete').length) ? 'mt-5' : ''%>">
+            <span>Tasks Completed: <%=tasks.filter(task => task.status=='complete').length%></span>
+        </div>
+
+        <div class='table-responsive' id='table'>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" >Task<br>status</th>
+                    <th scope="col" >Task<br>description</th>
+                    <th scope="col" >Assigned<br>at</th>
+                    <th scope="col">Time<br>taken</th>
+                    <th scope="col">Order<br>No</th>
+                    <th scope="col">Order<br>status</th>
+                    <% if(user.person=='employee'){ %>
+                        <th scope="col">Vehicle<br>ID</th>
+                        <th scope="col">Vehicle<br>Color</th>
+                        <th scope="col" class="col-1">Order<br>Details</th>
+                    <% } %>
+                    
+                    <% if(user.person=='admin'){ %>
+                        <th scope="col">Order<br>Details</th>
+                        <th scope="col" class="col-1">Customer<br>Details</th>
+                    <% } %>
+                </tr>
+                </thead>
+                <tbody>
+
+                    <% tasks.forEach((task,index)=>{ %>
+                        <tr>
+                            <th scope="row"><%= index+1 %></th>
+                            <td><%= task.status %></td>
+                            <td><%= task.desc %></td>
+                            <td><%= task.assigned_at %></td>
+
+                            <% if(task.time=='-'){ %>
+                                <td>-</td>
+                            <% } else{ %>
+                                <td><a class="btn-sm btn-block <%= Number(task.time)>(task.desc=='To assemble' ? 15 : 10) ? 'bg-red' : 'bg-green' %>" disabled><%= task.time %> min</a></td>
+                            <% } %>
+                            
+                            <td><%= task.order.orderNo %></td>
+                            <td><%= task.order.status %></td>
+
+                            <% if(user.person=='employee'){ %>
+                                <td><%= task.customerLicenseID %></td>
+                                <td><span class="color" colorAttr='<%= task.customerVehicleColor %>'>&nbsp;</span></td>
+                            <% } %>
+
+                            <% if(user.person=='admin'){ %>
+                                <td><a class="btn-sm btn-block btn-info" href="/customer/<%= task.customerID %>/order-details/<%= task.orderID %>" role="button">Link</a></td>
+                                <td><a class="btn-sm btn-block btn-info" href="/customer-details/<%= task.customerID %>" role="button">Link</a></td>
+                            <% } else{ %>
+                                <td><a class="btn-sm btn-block btn-info" href="/task/<%= task._id %>/order-details" role="button">Link</a></td>
+                            <% } %>
+                        </tr>
+                    <% }) %>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('includes/footer') %>

@@ -1,0 +1,93 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding">
+    <div class="container p-1">
+    
+        <div class="row d-flex justify-content-center align-items-center h-100">  
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="card-body p-md-5 text-black d-flex flex-column">
+                        <h3 class="mb-4 text-uppercase heading"><b>Notifications</b></h3>
+
+                        <% notifications.forEach((elem,index)=>{ %>
+                            <% if(elem.type==1){ %>
+                                <a href='/edit-employee/<%= elem.ref %>'>
+                                    <div class="alert alert-success" role="alert">
+                                        <span class="notification-text"><%= elem.text %></span>
+                                        <span class='created'><%= elem.timeStamp %></span>
+                                    </div>
+                                </a>
+                            <% } else if(elem.type==2){ %> 
+                                <a href='/customer-details/<%= elem.ref %>'>
+                                    <div class="alert alert-success" role="alert">
+                                        <span class="notification-text"><%= elem.text %></span>
+                                        <span class='created'><%= elem.timeStamp %></span>
+                                    </div>
+                                </a>
+                            <% } else if(elem.type==3){ %> 
+                                <a href='<%= elem.ref %>'>
+                                    <div class="alert alert-warning" role="alert">
+                                        <span class="notification-text"><%= elem.text %></span>
+                                        <span class='created'><%= elem.timeStamp %></span>
+                                    </div>
+                                </a>
+                            <% } else if(elem.type==4){ %> 
+                                <a href='/customer-orders/<%= elem.ref %>'>
+                                    <div class="alert alert-warning" role="alert">
+                                        <span class="notification-text"><%= elem.text %></span>
+                                        <span class='created'><%= elem.timeStamp %></span>
+                                    </div>
+                                </a>
+                            <% } else if(elem.type==5){ %> 
+                                <a href='/employee-tasks/<%= elem.ref %>'>
+                                    <div class="alert alert-warning" role="alert">
+                                        <span class="notification-text"><%= elem.text %></span>
+                                        <span class='created'><%= elem.timeStamp %></span>
+                                    </div>
+                                </a>
+                            <% } else if(elem.type==6){ %> 
+                                <a href='/inventory/<%= elem.ref %>'>
+                                    <div class="alert alert-primary" role="alert">
+                                        <span class="notification-text"><%= elem.text %></span>
+                                        <span class='created'><%= elem.timeStamp %></span>
+                                    </div>
+                                </a>
+                            <% } else if(elem.type==7){ %> 
+                                <a href='/inventory/<%= elem.ref %>'>
+                                    <div class="alert alert-danger" role="alert">
+                                        <span class="notification-text"><%= elem.text %></span>
+                                        <span class='created'><%= elem.timeStamp %></span>
+                                    </div>
+                                </a>
+                            <% } else if(elem.type==8 || elem.type==9){ %> 
+                                <a href='/all-orders'>
+                                    <div class="alert alert-warning" role="alert">
+                                        <span class="notification-text"><%= elem.text %></span>
+                                        <span class='created'><%= elem.timeStamp %></span>
+                                    </div>
+                                </a>  
+                            <% } else if(elem.type==10 || elem.type==11){ %> 
+                                <a>
+                                    <div class="alert alert-primary" role="alert">
+                                        <span class="notification-text"><%= elem.text %></span>
+                                        <span class='created'><%= elem.timeStamp %></span>
+                                    </div>
+                                </a>  
+                            <% } else if(elem.type==12){ %> 
+                                <a href='/employee-tasks/<%= elem.ref %>'>
+                                    <div class="alert alert-primary" role="alert">
+                                        <span class="notification-text"><%= elem.text %></span>
+                                        <span class='created'><%= elem.timeStamp %></span>
+                                    </div>
+                                </a>  
+                            <% } %>                                  
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+<%- include('includes/footer') %>

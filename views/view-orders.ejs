@@ -1,0 +1,94 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding py-md-5">
+    <div class="container-fluid p-1">
+
+        <%errors.forEach((error)=>{%>
+            <div class="alert alert-danger small text-center"><%=error%></div>
+        <%})%>
+
+        <%success.forEach((msg)=>{%>
+            <div class="alert alert-success small text-center"><%=msg%></div>
+        <%})%>
+
+        <% if(user.person=='customer'){ %>
+            <div class="d-flex justify-content-center flex-wrap">
+                <% if(orders.filter(order => order.status=='assembled').length){ %>
+                    <form action='/notify-store' method='POST' class="notifyForm">
+                        <button type="submit" class="btn btn-info notifyBtn">Notify Store</button>
+                    </form>
+                <% } %>
+                <% if(orders.filter(order => order.status=='assembled').length && orders.filter(order => order.status=='detected' && order.carrier != '-').length){ %>
+                    <span class="form-gap">&nbsp;&nbsp;&nbsp;</span>
+                <% } %>
+                <% if(orders.filter(order => order.status=='detected' && order.carrier != '-').length){ %>
+                    <form action='/confirm-delivery' method='POST' class="deliveryForm">
+                        <button type="submit" class="btn btn-success deliveryBtn">Confirm Delivery</button>
+                    </form>
+                <% } %>
+            </div>
+        <% } %>
+
+        <div class="table-responsive <%=(user.person=='customer' && orders.filter(order => (order.status=='assembled' || (order.status=='detected' && order.carrier != '-'))).length) ? 'mt-4' : ''%>" id='table'>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Order<br>No</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Placed At</th>
+                    <th scope="col">Assembled At</th>
+                    <th scope="col">Detected At</th>
+                    <th scope="col">Delivered At</th>
+                    <% if(user.person=='admin'){ %>
+                        <th scope="col">Assembler</th>   
+                        <th scope="col">Carrier</th>   
+                        <% if(customerDetails){ %>
+                            <th scope="col">Customer<br>Details</th> 
+                        <% } %>
+                    <% } %>
+                    <th scope="col" class="col-1">Order<br>Details</th>          
+                </tr>
+                </thead>
+                <tbody>
+
+                    <% orders.forEach((order,index)=>{ %>
+                        <tr>
+                            <th><%= order.orderNo %></th>
+                            <td><%= order.status %></td>
+                            <td><%= order.placed_at %></td>
+                            <td><%= order.assembled_at %></td>
+                            <td><%= order.detected_at %></td>
+                            <td><%= order.carried_at %></td>
+                            <% if(user.person=='admin'){ %>
+                                <% if(order.assembler=='-'){ %>
+                                    <td><%= order.assembler %></td>
+                                <% } else{ %>
+                                    <td><a class="btn-sm btn-block btn-info" href="/edit-employee/<%= order.assembler %>" role="button">Link</a></td>
+                                <% } %>
+                                
+                                <% if(order.carrier=='-'){ %>
+                                    <td><%= order.carrier %></td>
+                                <% } else{ %>
+                                    <td><a class="btn-sm btn-block btn-info" href="/edit-employee/<%= order.carrier %>" role="button">Link</a></td>
+                                <% } %>
+
+                                <% if(customerDetails){ %>
+                                    <td><a class="btn-sm btn-block btn-info" href="/customer-details/<%= order.customerID %>" role="button">Link</a></td>
+                                <% } %>
+                            <% } %>
+
+                            <% if(user.person=='admin'){ %>
+                                <td><a class="btn-sm btn-block btn-info" href="/customer/<%= order.customerID %>/order-details/<%= order._id %>" role="button">Link</a></td>
+                            <% } else{ %>
+                                <td><a class="btn-sm btn-block btn-info" href="/order-details/<%= order._id %>" role="button">Link</a></td>
+                            <% } %>
+                        </tr>
+                    <% }) %>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('includes/footer') %>

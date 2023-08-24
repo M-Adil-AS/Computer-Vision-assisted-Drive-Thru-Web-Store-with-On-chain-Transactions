@@ -1,0 +1,86 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding py-md-2">
+    <div class="container-fluid p-1">
+
+        <div class="scrolling-wrapper scroll-category">
+            <% categories.forEach((cat)=>{ %>
+                <a class="dropdown-item <%= cat==category ? 'category' : '' %>" href='/inventory/<%= cat %>/<%= sub_categories[categories.indexOf(cat)][0] %>'><%= cat %></a>
+            <% }) %>
+        </div>
+
+        <div class="scrolling-wrapper scroll-sub-category mt-4">
+            <% sub_categories[categories.indexOf(category)].forEach((sub)=>{ %>
+                <a class="dropdown-item <%= sub==sub_category ? 'sub-category' : '' %>" href='/inventory/<%= category %>/<%= sub %>'><%= sub %></a>
+            <% }) %>
+        </div>
+
+        <%errors.forEach((error)=>{%>
+            <div class="alert alert-danger small text-center mt-4"><%=error%></div>
+        <%})%>
+    
+        <%success.forEach((msg)=>{%>
+            <div class="alert alert-success small text-center  mt-4"><%=msg%></div>
+        <%})%>
+
+        <div class="input-group mt-4 import">
+            <a href='/import/baby-care/baby-diapers-wipes' class="form-control">Import Item</a>
+        </div>
+
+        <div class="input-group mt-4 search">
+            <input type="text" class="form-control searchField" placeholder="Search inventory">
+            <div class="input-group-append">
+              <button class="btn" type="button">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+        </div>
+
+        <div id='loader' class="mt-4 hidden">
+            <div class="spinner-border"></div>
+        </div>
+
+        <div class='search-results-wrapper'></div>
+
+        <div class='products-wrapper'>
+            <div class="d-flex justify-content-around flex-wrap mt-4">
+                <% items.forEach((item)=>{ %>
+                    <div class="product-card">
+                        <div class="product-thumb">
+                            <img class='product-image' src="<%=item.src%>" onerror="this.src='/images/not found.png'">
+                            <img class="product-remove" src="/images/removeItem.png">
+                        </div>
+
+                        <div class="product-details" id="<%=item._id%>">
+                            <h5><%=item.title%></h5>
+                            <p><%=item.desc%></p>
+    
+                            <div class="product-bottom-details">
+                                <div class="product-price">
+                                    <span>PKR&nbsp;&nbsp;</span>
+                                    <input class='price' type='number' name='price' value='<%= item.price %>'>
+                                </div> 
+                                
+                                <div class="input-group mb-3 d-flex justify-content-center qty-ctrl">
+                                    <div class="input-group-prepend">
+                                        <button class="input-group-text minus" type="button">-</button>
+                                    </div>
+                                    <input type="number" class="form-control qty" name='qty' value='<%= item.qty %>'>
+                                    <div class="input-group-append">
+                                        <button class="input-group-text plus" type="button">+</button>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-md ms-2 submit">Update item</button>                               
+                            </div>
+    
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<%- include('includes/footer') %>

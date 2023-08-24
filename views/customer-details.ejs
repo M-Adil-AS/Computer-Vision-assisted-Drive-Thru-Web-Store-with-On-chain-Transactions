@@ -1,0 +1,38 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding">
+    <div class="container p-1">
+
+        <%errors.forEach((error)=>{%>
+            <div class="alert alert-danger small text-center"><%=error%></div>
+        <%})%>
+    
+        <%success.forEach((msg)=>{%>
+            <div class="alert alert-success small text-center"><%=msg%></div>
+        <%})%>
+    
+        <div class="row d-flex justify-content-center align-items-center h-100">  
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="card-body p-md-5 text-black d-flex flex-column">
+                        <span class='mb-3'><b>Name:</b> <%= customer.username %></span>
+                        <span class='mb-3'><b>Email:</b> <%= customer.email %></span>
+                        <span class='mb-3'><b>Contact:</b> <%= customer.contact %></span>
+                        <span class='mb-3'><b>Vehicle ID:</b> <%= customer.license %></span>
+                        <span class='mb-3'><b>Vehicle Color:</b> <span class='color' colorAttr='<%=customer.color%>'>&nbsp;</span></span>
+                        <% if(customer.orders){ %>
+                            <span class='mb-3'><b>Orders Placed:</b> <%= customer.orders.length %></span>  
+                            <span class='mb-3'><b>Total Sales:</b> <%= customer.orders.reduce((valX,order)=> valX + (order.items.reduce((valY,item) => valY + (Number(item.price)*Number(item.qty)), 0)),0) %></span>  
+                        <% } else{ %>
+                            <span class='mb-3'><b>Orders Placed:</b> 0</span>  
+                            <span class='mb-3'><b>Total Sales:</b> 0</span>  
+                        <% } %>                                  
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+<%- include('includes/footer') %>

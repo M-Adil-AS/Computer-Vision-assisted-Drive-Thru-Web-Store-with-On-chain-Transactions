@@ -1,0 +1,46 @@
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+
+.card-registration .select-arrow {
+    top: 13px;
+}
+
+.radio1{
+    margin-top: 0px;
+}
+
+.radio2{
+    margin-top: 0px;
+}
+
+.officePic2{
+    height: 930px;
+}
+
+@media (max-width: 767px) {
+    .radio1, .radio2 {margin-top: 10px;}
+    .form-control{font-size:medium;}
+    .card .card-body{padding: 2rem;}
+    .submit{font-size: 1rem}
+    .heading{font-size: 1.5rem;}
+}
+
+@media (max-width: 520px){
+    .submit{width: 100%;}
+    .heading{text-align: center;}
+    input[type=text], input[type=password], input[type=tel]{height:45px;}
+}
+
+@media (max-width: 340px){
+    .heading {font-size: 1.3rem}
+    .form-control{font-size:small;}
+    .submit{font-size: 0.8rem}
+    .card .card-body{padding: 1.5rem;}
+    .card-body label, h6{font-size: small;}
+    input[type=text], input[type=password], input[type=tel]{height:40px;}
+    .radio1 label, .radio2 label{padding-top: 2px;}
+}

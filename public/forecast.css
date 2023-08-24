@@ -1,0 +1,19 @@
+body, .tooltip{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.outer-padding{
+    padding: .5rem 3rem;
+}
+
+#initial-chart{
+    width:100%;
+}
+
+@media (max-width: 768px) {
+    .outer-padding{padding: .5rem 2rem;}
+}
+
+@media (max-width: 340px) {
+    .outer-padding{padding: .5rem 1.3rem;}
+}

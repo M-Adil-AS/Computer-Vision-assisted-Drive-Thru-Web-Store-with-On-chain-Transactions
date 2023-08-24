@@ -1,0 +1,41 @@
+.col{
+    max-width:800px;
+}
+
+.alert{
+    display: flex;
+    justify-content: space-between;
+}
+
+.notification-text{
+    flex: 55%;
+    padding-right: 10px;
+}
+
+.card-body a{
+    text-decoration: none;
+}
+
+.card-body a:hover{
+    box-shadow: 0px -8px 6px -8px hsl(0, 0%, 0%)
+}
+
+@media (max-width: 1000px) {
+    .notification-text, .created{font-size: 0.85rem;}
+}
+
+@media (max-width: 767px) {
+    .card .card-body{padding: 2rem;}
+    .notification-text, .created{font-size: 0.8rem;}
+    .alert{display: flex; flex-direction: column;}
+    .heading{font-size: 1.5rem;}
+}
+
+@media (max-width: 520px){
+    .heading{text-align: center;}
+}
+
+@media (max-width: 340px){
+    .card .card-body{padding: 1.5rem;}
+    .heading {font-size: 1.2rem}
+}

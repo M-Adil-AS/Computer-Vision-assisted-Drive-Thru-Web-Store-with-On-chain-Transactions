@@ -1,0 +1,50 @@
+<%- include('includes/header') %>
+
+<div class="outer-padding py-md-5">
+    <div class="container-fluid p-1">
+        <div id='salesForm'>
+            <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+                <label class="mb-0 me-4 mr-4">Compare:</label>
+
+                <div class="custom-control custom-radio custom-control-inline radio">
+                    <input type="radio" id="month" value='month' name="compare" class="custom-control-input" checked>
+                    <label class="custom-control-label" for="month">Months</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline radio">
+                    <input type="radio" id="year" value='year' name="compare" class="custom-control-input">
+                    <label class="custom-control-label" for="year">Years</label>
+                </div>
+            </div>
+
+            <div class="form-group d-inline-block from">
+                <label for="From">From</label>
+                <input type='month' class="form-control-sm" id='From'>
+            </div>
+            <div class="form-group d-inline-block to">
+                <label for="To">To</label>
+                <input type='month' class="form-control-sm" id='To'>
+            </div>
+
+            <div class="form-group d-inline-block saleSubmit">
+                <button type="button" class="btn-primary form-control-sm" id='saleSubmitBtn'>Render</button>
+            </div>  
+
+            <div class="form-group d-inline-block saleForecast">
+                <button type="button" class="btn-success form-control-sm" id='saleForecastBtn'>Forecast Sales</button>
+            </div>  
+        </div>
+
+        <div id="s-bar"></div>
+        <div class="d-flex" id='charts'>
+            <div id="c-bar"></div>
+            <div id="pie"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let customers = '<%- JSON.stringify(customers) %>'       
+    let env = '<%- JSON.stringify(env) %>'  
+</script>
+
+<%- include('includes/footer') %>

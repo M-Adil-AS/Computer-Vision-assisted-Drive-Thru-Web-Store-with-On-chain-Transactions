@@ -1,0 +1,1 @@
+document.querySelector('.color').style.background = document.querySelector('.color').getAttribute('colorAttr')
